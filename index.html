@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estratificação de Risco e Planejamento da Visita Domiciliar</title>
+    <style>
+        /* Estilos Gerais */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+            color: #212529;
+            line-height: 1.6;
+        }
+
+        /* Cabeçalho */
+        header {
+            background-color: #005a9c; /* Tom de azul mais profissional */
+            color: white;
+            padding: 25px 20px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        header h1 {
+            margin: 0;
+            font-size: 1.8em;
+            font-weight: 600;
+        }
+        header p {
+            margin: 10px 0 0;
+            font-size: 1.3em;
+            opacity: 1;
+            font-weight: 500;
+            color: #e9ecef;
+        }
+
+        /* Container Principal */
+        .container {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+
+        /* Seções da Calculadora */
+        .section {
+            background-color: #ffffff;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .section-title {
+            font-size: 1.5em;
+            color: #005a9c;
+            margin-bottom: 10px; /* Reduzido para aproximar o subtítulo */
+            border-bottom: 2px solid #e9ecef;
+            padding-bottom: 10px;
+        }
+        .section-subtitle {
+            font-size: 1rem;
+            color: #6c757d;
+            margin-top: -5px;
+            margin-bottom: 20px;
+            font-weight: 400;
+        }
+
+        /* Grupos de Formulário */
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-group .subtext {
+            font-size: 0.9em;
+            color: #6c757d;
+            font-weight: normal;
+            margin-bottom: 10px;
+        }
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            background-color: #fff;
+        }
+        .form-group .options label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: normal;
+        }
+        .form-group .indent {
+            margin-left: 20px;
+        }
+
+        /* Botões */
+        .button {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .button:hover {
+            background-color: #0056b3;
+        }
+        .button-secondary {
+            background-color: #28a745; /* Cor verde para destaque */
+            font-size: 1.2em; /* Fonte maior para destaque */
+            padding: 15px;
+        }
+        .button-secondary:hover {
+            background-color: #218838;
+        }
+        .button-tertiary {
+            background-color: #17a2b8;
+        }
+        .button-tertiary:hover {
+            background-color: #138496;
+        }
+        .button-print {
+            background-color: #6c757d;
+        }
+        .button-print:hover {
+            background-color: #5a6268;
+        }
+
+        /* Resultados */
+        .results-area {
+            display: flex;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .result-box {
+            flex: 1;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+        .result-box .title {
+            display: block;
+            font-size: 0.9em;
+            font-weight: normal;
+            margin-bottom: 10px;
+        }
+        #pps-result-box {
+            background-color: #e2e3e5;
+            color: #343a40;
+            border: 1px solid #dae0e5;
+            margin-top: 15px;
+            padding: 10px;
+            font-size: 1em;
+        }
+        /* Cores para os resultados */
+        .ad1 { background-color: #d1ecf1; color: #0c5460; border: 1px solid #bee5eb; }
+        .ad2 { background-color: #fff3cd; color: #856404; border: 1px solid #ffeeba; }
+        .ad3 { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        .low-risk { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb;}
+        .medium-risk { background-color: #fff3cd; color: #856404; border: 1px solid #ffeeba; }
+        .high-risk { background-color: #ffeeba; color: #856404; border: 1px solid #ffdf7e; }
+        .very-high-risk { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        
+        /* --- ESTILOS DO PLANO DE PRECEPTORIA --- */
+        #preceptorship-plan {
+            display: none; /* Começa escondido */
+            margin-top: 30px;
+            border-top: 3px solid #007bff;
+            padding-top: 20px;
+        }
+        .plan-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .plan-header input[type="text"] {
+            border: none;
+            border-bottom: 2px solid #ced4da;
+            text-align: center;
+            font-size: 1.5em;
+            font-weight: bold;
+            width: 50%;
+            margin-bottom: 10px;
+        }
+        .plan-header input[type="text"]:focus {
+            outline: none;
+            border-bottom-color: #007bff;
+        }
+        .plan-header .classification-summary {
+            font-size: 1.1em;
+            color: #6c757d;
+        }
+        .plan-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        .plan-quadrant {
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            border: 1px solid #e9ecef;
+        }
+        .plan-quadrant h3 {
+            margin-top: 0;
+            color: #005a9c;
+            display: flex;
+            align-items: center;
+        }
+        .plan-quadrant h3 svg {
+            margin-right: 10px;
+        }
+        .plan-quadrant textarea {
+            width: 100%;
+            height: 150px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            padding: 10px;
+            font-family: inherit;
+            font-size: 1em;
+            resize: vertical;
+        }
+        .plan-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        /* Estilos de Impressão */
+        @media print {
+            body {
+                background-color: #fff;
+            }
+            header, .calculators-container, .results-container, .plan-actions, footer {
+                display: none;
+            }
+            .container {
+                max-width: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            #preceptorship-plan {
+                display: block !important;
+                box-shadow: none;
+                border: none;
+            }
+            .plan-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .plan-quadrant {
+                box-shadow: none;
+                border: 1px solid #ccc;
+                page-break-inside: avoid;
+            }
+        }
+
+        /* Rodapé */
+        footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 30px;
+            font-size: 0.8em;
+            color: #6c757d;
+        }
+        footer a {
+            color: #005a9c;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Estratificação de Risco e Planejamento da Visita Domiciliar</h1>
+        <p>Uma Ferramenta para a Preceptoria na Atenção Primária</p>
+    </header>
+
+    <div class="container">
+        <!-- ÁREA DAS CALCULADORAS -->
+        <div class="calculators-container">
+            <!-- SEÇÃO 1: IAEC-AD -->
+            <div class="section">
+                <h2 class="section-title">Passo 1: Nível de Atenção Domiciliar (IAEC-AD)</h2>
+                <div class="form-group">
+                    <label>Indicações Clínicas Especiais ou Gatilhos</label>
+                    <p class="subtext">A seleção de um dos Gatilhos abaixo já classifica o usuário como AD2 ou AD3, independentemente da pontuação.</p>
+                    <div class="options">
+                        <label><input type="checkbox" id="ad2_trigger"> AD2: Necessidade de curativos complexos ou medicação parenteral (exceto insulina).</label>
+                        <label><input type="checkbox" id="ad3_trigger"> AD3: Necessidade de tratamentos de alta complexidade (transfusão, paracentese, NPT), cuidados paliativos sequenciais ou ventilação mecânica invasiva.</label>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Uso do sistema de Saúde</label>
+                    <div class="indent">
+                        <label for="historico">Histórico de internação hospitalar nos últimos 3 meses</label>
+                        <select id="historico">
+                            <option value="0" selected>Selecione...</option>
+                            <option value="0">Nenhuma (0 pts)</option>
+                            <option value="1">Pelo menos uma (1 pt)</option>
+                            <option value="2">Duas ou mais (2 pts)</option>
+                            <option value="4">Pelo menos uma em UTI (4 pts)</option>
+                        </select>
+                        <label for="tempo">Tempo de permanência hospitalar nos últimos 3 meses</label>
+                        <p class="subtext">Considerar o maior período no caso de múltiplas internações.</p>
+                        <select id="tempo">
+                            <option value="0" selected>Selecione...</option>
+                            <option value="0">Sem história de internação (0 pts)</option>
+                            <option value="1">Até 07 dias (1 pt)</option>
+                            <option value="2">De 07 a 30 dias (2 pts)</option>
+                            <option value="3">Mais de 30 dias (3 pts)</option>
+                        </select>
+                        <label for="frequencia">Frequência de procura por serviços de urgência nos últimos 3 meses</label>
+                        <select id="frequencia">
+                            <option value="0" selected>Selecione...</option>
+                            <option value="0">Nenhuma (0 pts)</option>
+                            <option value="1">Procurou 2 vezes (1 pt)</option>
+                            <option value="2">Procurou 3 a 4 vezes (2 pts)</option>
+                            <option value="3">Procurou 5 ou mais vezes (3 pts)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="relacao">Vulnerabilidade Social (Relação morador-cômodo)</label>
+                    <p class="subtext">Divida o número de moradores pelo número de cômodos.</p>
+                    <select id="relacao">
+                        <option value="0" selected>Selecione...</option>
+                        <option value="0">Menor que 1 (0 pts)</option>
+                        <option value="1">Igual a 1 (1 pt)</option>
+                        <option value="2">Maior que 1 (2 pts)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="suporte_iaec">Suporte Familiar / Cuidados</label>
+                     <select id="suporte_iaec">
+                        <option value="0" selected>Selecione...</option>
+                        <option value="0">Suporte familiar adequado (0 pts)</option>
+                        <option value="1">Suporte familiar inadequado (1 pt)</option>
+                    </select>
+                </div>
+
+                 <div class="form-group">
+                    <label>Funcionalidade</label>
+                    <div class="indent">
+                        <label for="dnpm">Para crianças de até 07 anos, em relação ao DNPM</label>
+                        <select id="dnpm">
+                            <option value="0" selected>Selecione...</option>
+                            <option value="0">Acompanha marcos para a idade (0 pts)</option>
+                            <option value="6">"Alerta" ou "Provável atraso" (6 pts)</option>
+                        </select>
+                        <label>Para crianças > 7 anos e adultos (Capacidade funcional)</label>
+                        <div class="indent">
+                            <label for="banho">Banho</label>
+                            <select id="banho">
+                                <option value="0" selected>Selecione...</option>
+                                <option value="0">Independente (0 pts)</option>
+                                <option value="1">Dependente parcial (1 pt)</option>
+                                <option value="2">Dependente completo (2 pts)</option>
+                            </select>
+                            <label for="alimentar">Alimentar-se</label>
+                            <select id="alimentar">
+                                 <option value="0" selected>Selecione...</option>
+                                <option value="0">Independente (0 pts)</option>
+                                <option value="1">Dependente parcial (1 pt)</option>
+                                <option value="2">Dependente completo (2 pts)</option>
+                            </select>
+                             <label for="locomover">Locomover-se</label>
+                            <select id="locomover">
+                                 <option value="0" selected>Selecione...</option>
+                                <option value="0">Independente (0 pts)</option>
+                                <option value="1">Dependente parcial (1 pt)</option>
+                                <option value="2">Dependente completo (2 pts)</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                 <div class="form-group">
+                    <label for="polifarmacia_iaec">Polifarmácia (5 ou mais medicações de uso contínuo)</label>
+                    <select id="polifarmacia_iaec">
+                        <option value="0" selected>Selecione...</option>
+                        <option value="0">Não (0 pts)</option>
+                        <option value="1">Sim (1 pt)</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- SEÇÃO 2: VULNERABILIDADE -->
+            <div class="section">
+                <h2 class="section-title">Passo 2: Frequência da Visita</h2>
+                <p class="section-subtitle">pela Classificação de Risco e Vulnerabilidade Clínica para Pacientes em Visita Domiciliar na APS</p>
+                <div class="form-group">
+                    <label>Idade:</label>
+                    <div class="options">
+                        <label><input type="radio" name="idade" value="0" checked> Abaixo de 75 anos</label>
+                        <label><input type="radio" name="idade" value="1"> Entre 75 e 84 anos</label>
+                        <label><input type="radio" name="idade" value="2"> Acima de 85 anos</label>
+                    </div>
+                </div>
+                 <div class="form-group">
+                    <label>Multimorbidade:</label>
+                    <div class="options">
+                        <label><input type="checkbox" name="multimorbidade" value="2"> ≥ 5 comorbidades</label>
+                        <label><input type="checkbox" name="multimorbidade" value="5"> Descompensação clínica atual</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Polifarmácia:</label>
+                     <div class="options">
+                        <label><input type="radio" name="polifarmacia" value="0" checked> Uso de até 4 medicamentos/dia</label>
+                        <label><input type="radio" name="polifarmacia" value="2"> ≥ 5 medicamentos/dia</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Dependência Funcional:</label>
+                     <div class="options">
+                        <label><input type="radio" name="dependencia" value="1"> Dependência para AVDs Instrumentais</label>
+                        <label><input type="radio" name="dependencia" value="2"> Dependência para AVDs Básicas e Instrumentais</label>
+                    </div>
+                </div>
+                 <div class="form-group">
+                    <label>Mobilidade:</label>
+                     <div class="options">
+                        <label><input type="radio" name="mobilidade" value="1"> Dificuldade de marcha</label>
+                        <label><input type="radio" name="mobilidade" value="2"> Risco de queda</label>
+                        <label><input type="radio" name="mobilidade" value="3"> Acamado</label>
+                    </div>
+                </div>
+                 <div class="form-group">
+                    <label>Suporte Familiar:</label>
+                     <div class="options">
+                        <label><input type="checkbox" name="suporte_vul" value="1"> Disfunção familiar</label>
+                        <label><input type="checkbox" name="suporte_vul" value="1"> Sobrecarga do cuidador</label>
+                    </div>
+                </div>
+                 <div class="form-group">
+                    <label>Fragilidade:</label>
+                     <div class="options">
+                        <label><input type="checkbox" name="fragilidade" value="2"> Síndrome demencial</label>
+                        <label><input type="checkbox" name="fragilidade" value="2"> Depressão</label>
+                        <label><input type="checkbox" name="fragilidade" value="2"> Parkinson</label>
+                        <label><input type="checkbox" name="fragilidade" value="2"> Neoplasia</label>
+                        <label><input type="checkbox" name="fragilidade" value="2"> Sarcopenia</label>
+                        <label><input type="checkbox" name="fragilidade" value="2"> Desnutrição</label>
+                        <label><input type="checkbox" name="fragilidade" value="2"> Disfagia</label>
+                        <label><input type="checkbox" name="fragilidade" value="2"> Incontinência</label>
+                        <label><input type="checkbox" name="fragilidade" value="2"> Paralisia cerebral</label>
+                    </div>
+                </div>
+                 <!-- Campo oculto para armazenar os pontos do PPS -->
+                 <input type="hidden" id="pps-points" value="2">
+            </div>
+
+            <!-- SEÇÃO 3: CALCULADORA PPS -->
+            <div class="section">
+                <h2 class="section-title">Passo 3: Calculadora de PPS</h2>
+                <p class="subtext">Calcule o PPS para determinar a pontuação que será usada automaticamente na Frequência da Visita.</p>
+                <div class="form-group">
+                    <label for="deambulacao">Deambulação:</label>
+                    <select id="deambulacao">
+                        <option value="100" selected>Selecione...</option>
+                        <option value="100">Totalmente ambulatorial (100%)</option>
+                        <option value="90">Reduzida (90%)</option>
+                        <option value="70">Sentado ou na cadeira (70%)</option>
+                        <option value="50">Cadeira ou cama (50%)</option>
+                        <option value="30">Totalmente acamado (30% a 10%)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="atividade">Atividade:</label>
+                    <select id="atividade">
+                        <option value="100" selected>Selecione...</option>
+                        <option value="100">Atividades e trabalho normais, sem evidência de doença (100%)</option>
+                        <option value="90">Atividades e trabalho normais, alguma evidência de doença (90%)</option>
+                        <option value="80">Atividades normais com esforço, alguma evidência de doença (80%)</option>
+                        <option value="70">Incapaz para o trabalho, doença significativa (70%)</option>
+                        <option value="60">Incapaz para hobbies ou trabalhos domésticos (60%)</option>
+                        <option value="50">Incapaz para qualquer trabalho, doença extensa (50%)</option>
+                        <option value="40">Incapaz para a maioria das atividades (40%)</option>
+                        <option value="30">Incapaz para qualquer atividade (30% a 10%)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="autocuidado">Autocuidado:</label>
+                    <select id="autocuidado">
+                        <option value="100" selected>Selecione...</option>
+                        <option value="100">Completo (100% a 70%)</option>
+                        <option value="60">Assistência ocasional (60%)</option>
+                        <option value="50">Assistência considerável (50%)</option>
+                        <option value="40">Assistência quase completa (40%)</option>
+                        <option value="30">Dependência completa (30% a 10%)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="ingesta">Ingesta:</label>
+                    <select id="ingesta">
+                        <option value="100" selected>Selecione...</option>
+                        <option value="100">Normal (100% a 90%)</option>
+                        <option value="80">Normal a Reduzida (80% a 30%)</option>
+                        <option value="20">Mínima a Pequenos goles (20%)</option>
+                        <option value="10">Cuidados com a boca (10%)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="consciencia">Nível da Consciência:</label>
+                    <select id="consciencia">
+                        <option value="100" selected>Selecione...</option>
+                        <option value="100">Completa (100% a 70%)</option>
+                        <option value="60">Completa a Períodos de confusão (60% a 50%)</option>
+                        <option value="40">Completa a Sonolência (40% a 20%)</option>
+                        <option value="10">Sonolência a Coma (10%)</option>
+                    </select>
+                </div>
+                <button class="button button-tertiary" onclick="calculatePPS()">Calcular PPS</button>
+                <div id="pps-result-box" class="result-box" style="display:none;"></div>
+            </div>
+        </div>
+
+        <!-- ÁREA DE RESULTADOS E BOTÃO DO PLANO -->
+        <div class="results-container">
+            <button class="button" onclick="runCalculations()">Calcular Estratificação Final</button>
+            <div class="results-area" id="results-area" style="display:none;">
+                <div id="result-ad" class="result-box"></div>
+                <div id="result-freq" class="result-box"></div>
+            </div>
+            <button class="button button-secondary" id="btn-generate-plan" onclick="generatePlan()" style="display:none; margin-top: 10px;">Gerar Plano de Preceptoria</button>
+        </div>
+
+        <!-- O PLANO DE PRECEPTORIA (ESCONDIDO) -->
+        <div id="preceptorship-plan">
+            <div class="plan-header">
+                <input type="text" id="plan-patient-name" placeholder="Nome do Paciente">
+                <div id="plan-summary" class="classification-summary"></div>
+            </div>
+            <div class="plan-grid">
+                <!-- Quadrante 1: Clínico -->
+                <div class="plan-quadrant">
+                    <h3>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><line x1="10" y1="9" x2="8" y2="9"></line></svg>
+                        O Clínico
+                    </h3>
+                    <textarea id="q1-clinico" placeholder="Principais achados clínicos, hipóteses, pontos-chave do exame..."></textarea>
+                </div>
+                <!-- Quadrante 2: Contexto -->
+                <div class="plan-quadrant">
+                    <h3>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                        O Contexto (C.A.S.A.)
+                    </h3>
+                    <textarea id="q2-contexto" placeholder="Observações sobre Cuidado, Ambiente, Suporte e Autonomia..."></textarea>
+                </div>
+                <!-- Quadrante 3: Aprendizado -->
+                <div class="plan-quadrant">
+                    <h3>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="23"></line><line x1="8" y1="23" x2="16" y2="23"></line></svg>
+                        O Aprendizado
+                    </h3>
+                    <textarea id="q3-aprendizado" placeholder="Qual foi o maior aprendizado ou dificuldade? O que a experiência despertou em você?"></textarea>
+                </div>
+                <!-- Quadrante 4: Plano -->
+                <div class="plan-quadrant">
+                    <h3>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="12" y1="18" x2="12" y2="12"></line><line x1="9" y1="15" x2="15" y2="15"></line></svg>
+                        O Plano
+                    </h3>
+                    <textarea id="q4-plano" placeholder="Plano de ação concreto para o paciente, considerando o clínico e o contexto..."></textarea>
+                </div>
+            </div>
+            <div class="plan-actions">
+                <button class="button button-print" onclick="window.print()">Imprimir / Salvar PDF</button>
+                <button class="button" onclick="clearPlan()">Limpar Plano</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>Baseado em <a href="https://www.saude.df.gov.br/documents/37101/0/IAEC-AD.pdf/a5a16384-9e9a-e45b-8e63-381d934dcb9e?t=1711389563473" target="_blank">instrumentos da SAES/DF</a> e no <a href="https://docs.bvsalud.org/biblioref/2019/06/996066/1818-10933-1-pb.pdf" target="_blank">artigo de Pinheiro, J.V. et al. (RBMFC, 2019)</a>.</p>
+        <p>Ferramenta desenvolvida como produto técnico para a Pós-Graduação em Preceptoria de Medicina de Família e Comunidade.</p>
+    </footer>
+
+    <script>
+        // Função principal que orquestra os cálculos
+        function runCalculations() {
+            const adResult = calculateAD();
+            const freqResult = calculateFreq();
+
+            const resultADDiv = document.getElementById('result-ad');
+            const resultFreqDiv = document.getElementById('result-freq');
+            
+            resultADDiv.innerHTML = `<span class="title">Nível de Atenção</span> ${adResult.text}`;
+            resultADDiv.className = `result-box ${adResult.class}`;
+
+            resultFreqDiv.innerHTML = `<span class="title">Frequência da Visita</span> ${freqResult.text}`;
+            resultFreqDiv.className = `result-box ${freqResult.class}`;
+            
+            document.getElementById('results-area').style.display = 'flex';
+            document.getElementById('btn-generate-plan').style.display = 'block';
+        }
+
+        // Calcula o Nível de Atenção Domiciliar (AD1, AD2, AD3)
+        function calculateAD() {
+            let pontos = 0;
+            const ad2_trigger = document.getElementById('ad2_trigger').checked;
+            const ad3_trigger = document.getElementById('ad3_trigger').checked;
+
+            pontos += parseInt(document.getElementById('historico').value);
+            pontos += parseInt(document.getElementById('tempo').value);
+            pontos += parseInt(document.getElementById('frequencia').value);
+            pontos += parseInt(document.getElementById('relacao').value);
+            pontos += parseInt(document.getElementById('suporte_iaec').value);
+            pontos += parseInt(document.getElementById('dnpm').value);
+            pontos += parseInt(document.getElementById('banho').value);
+            pontos += parseInt(document.getElementById('alimentar').value);
+            pontos += parseInt(document.getElementById('locomover').value);
+            pontos += parseInt(document.getElementById('polifarmacia_iaec').value);
+
+            if (ad3_trigger || pontos >= 16) {
+                return { text: 'AD3', class: 'ad3' };
+            } else if (ad2_trigger || (pontos >= 10 && pontos <= 15)) {
+                return { text: 'AD2', class: 'ad2' };
+            } else { // pontos <= 9
+                return { text: 'AD1', class: 'ad1' };
+            }
+        }
+
+        // Calcula a Frequência da Visita
+        function calculateFreq() {
+            let total = 0;
+            total += parseInt(document.querySelector('input[name="idade"]:checked')?.value || 0);
+            total += Array.from(document.querySelectorAll('input[name="multimorbidade"]:checked')).reduce((acc, curr) => acc + parseInt(curr.value), 0);
+            total += parseInt(document.querySelector('input[name="polifarmacia"]:checked')?.value || 0);
+            
+            const dependenciaRadios = document.querySelector('input[name="dependencia"]:checked');
+            if(dependenciaRadios) total += parseInt(dependenciaRadios.value);
+            
+            const mobilidadeRadios = document.querySelector('input[name="mobilidade"]:checked');
+            if(mobilidadeRadios) total += parseInt(mobilidadeRadios.value);
+
+            total += Array.from(document.querySelectorAll('input[name="suporte_vul"]:checked')).reduce((acc, curr) => acc + parseInt(curr.value), 0);
+            total += Array.from(document.querySelectorAll('input[name="fragilidade"]:checked')).reduce((acc, curr) => acc + parseInt(curr.value), 0);
+            total += parseInt(document.getElementById('pps-points').value);
+            
+            if (total <= 5) {
+                return { text: '6 meses a 1 ano', class: 'low-risk' };
+            } else if (total <= 10) {
+                return { text: '4 a 6 meses', class: 'medium-risk' };
+            } else if (total <= 15) {
+                return { text: '2 a 3 meses', class: 'high-risk' };
+            } else { // total >= 16
+                return { text: '1 a 2 meses', class: 'very-high-risk' };
+            }
+        }
+
+        // Calcula o PPS e armazena os pontos correspondentes
+        function calculatePPS() {
+            const deambulacao = parseInt(document.getElementById('deambulacao').value);
+            const atividade = parseInt(document.getElementById('atividade').value);
+            const autocuidado = parseInt(document.getElementById('autocuidado').value);
+            const ingesta = parseInt(document.getElementById('ingesta').value);
+            const consciencia = parseInt(document.getElementById('consciencia').value);
+
+            const pps = Math.min(deambulacao, atividade, autocuidado, ingesta, consciencia);
+
+            const ppsResultBox = document.getElementById('pps-result-box');
+            ppsResultBox.innerText = `PPS Calculado: ${pps}%`;
+            ppsResultBox.style.display = 'block';
+
+            let ppsPoints = 0;
+            if (pps >= 80) {
+                ppsPoints = 2;
+            } else if (pps >= 50) {
+                ppsPoints = 5;
+            } else if (pps >= 30) {
+                ppsPoints = 8;
+            } else {
+                ppsPoints = 10;
+            }
+            document.getElementById('pps-points').value = ppsPoints;
+        }
+
+        // Mostra o Plano de Preceptoria e preenche o resumo
+        function generatePlan() {
+            const plan = document.getElementById('preceptorship-plan');
+            plan.style.display = 'block';
+
+            const adResultText = document.getElementById('result-ad').innerText.replace('Nível de Atenção\n', '');
+            const freqResultText = document.getElementById('result-freq').innerText.replace('Frequência da Visita\n', '');
+
+            document.getElementById('plan-summary').innerText = `Classificação: ${adResultText} | Frequência Sugerida: ${freqResultText}`;
+            
+            // Rola a tela para o plano
+            plan.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Limpa os campos do plano para uma nova sessão
+        function clearPlan() {
+            document.getElementById('plan-patient-name').value = '';
+            document.getElementById('q1-clinico').value = '';
+            document.getElementById('q2-contexto').value = '';
+            document.getElementById('q3-aprendizado').value = '';
+            document.getElementById('q4-plano').value = '';
+        }
+    </script>
+</body>
+</html>
