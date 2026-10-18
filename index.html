@@ -54,7 +54,7 @@
         .section-title {
             font-size: 1.5em;
             color: #005a9c;
-            margin-bottom: 10px; /* Reduzido para aproximar o subtítulo */
+            margin-bottom: 10px;
             border-bottom: 2px solid #e9ecef;
             padding-bottom: 10px;
         }
@@ -64,6 +64,7 @@
             margin-top: -5px;
             margin-bottom: 20px;
             font-weight: 400;
+            font-style: italic;
         }
 
         /* Grupos de Formulário */
@@ -115,7 +116,7 @@
         }
         .button-secondary {
             background-color: #28a745; /* Cor verde para destaque */
-            font-size: 1.2em; /* Fonte maior para destaque */
+            font-size: 1.2em;
             padding: 15px;
         }
         .button-secondary:hover {
@@ -210,19 +211,23 @@
             padding: 20px;
             box-shadow: 0 2px 5px rgba(0,0,0,0.05);
             border: 1px solid #e9ecef;
+            display: flex;
+            flex-direction: column;
         }
         .plan-quadrant h3 {
             margin-top: 0;
             color: #005a9c;
             display: flex;
             align-items: center;
+            font-size: 1.2em;
         }
         .plan-quadrant h3 svg {
             margin-right: 10px;
         }
         .plan-quadrant textarea {
             width: 100%;
-            height: 150px;
+            flex-grow: 1;
+            min-height: 150px;
             border: 1px solid #ced4da;
             border-radius: 4px;
             padding: 10px;
@@ -235,6 +240,91 @@
             gap: 10px;
             margin-top: 20px;
         }
+
+        /* --- ESTILOS DO GUIA DO PRECEPTOR --- */
+        #preceptor-guide {
+            display: none; /* Começa escondido */
+            margin-top: 30px;
+            background-color: #e7f1ff;
+            border: 1px solid #b6d4fe;
+            border-radius: 8px;
+            padding: 20px;
+        }
+        #preceptor-guide h2 {
+            color: #005a9c;
+            margin-top: 0;
+            display: flex;
+            align-items: center;
+        }
+        #preceptor-guide .guide-intro {
+            margin-bottom: 20px;
+            font-style: italic;
+            color: #495057;
+        }
+        .guide-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        .guide-item {
+            background-color: #fff;
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 4px solid #007bff;
+        }
+        .guide-item h4 {
+            margin-top: 0;
+            color: #007bff;
+            margin-bottom: 10px;
+        }
+        .guide-item ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+        .guide-item li {
+            margin-bottom: 5px;
+            font-size: 0.95em;
+            color: #333;
+        }
+
+        /* Roteiro formativo do residente e do preceptor */
+        #preceptorship-plan { display:none; margin-top:28px; background:#fff; border:1px solid #dbe4ec; border-radius:12px; padding:clamp(18px,3vw,30px); box-shadow:0 4px 18px rgba(20,50,80,.07); }
+        .learning-heading h2 { margin:0 0 6px; color:#123e63; font-size:1.7rem; }
+        .learning-heading>p:last-child { margin:0 0 20px; color:#536575; }
+        .eyebrow { color:#087e78; text-transform:uppercase; letter-spacing:.08em; font-weight:700; font-size:.78rem; margin:0 0 5px; }
+        .plan-header { display:grid; gap:12px; padding:16px; border-radius:8px; background:#f2f7fa; margin-bottom:18px; }
+        .plan-header label { font-weight:600; color:#35495a; }
+        .plan-header input { display:block; width:100%; box-sizing:border-box; margin-top:6px; padding:11px; border:1px solid #cbd5df; border-radius:6px; font:inherit; }
+        .classification-summary { font-weight:600; color:#244b68; }
+        .tab-list { display:flex; border-bottom:1px solid #d8e1e8; gap:8px; margin-bottom:20px; }
+        .tab-button { border:0; border-bottom:3px solid transparent; background:transparent; padding:12px 16px; color:#4b5b68; cursor:pointer; font:inherit; font-weight:700; }
+        .tab-button.is-active { color:#005a9c; border-bottom-color:#087e78; }
+        .tab-panel[hidden] { display:none; }
+        .panel-intro { display:flex; flex-direction:column; gap:3px; margin-bottom:16px; color:#536575; }
+        .panel-intro strong { color:#173f5f; font-size:1.1rem; }
+        .learning-card { padding:18px; margin:0 0 16px; border:1px solid #e0e7ed; border-radius:9px; background:#fff; }
+        .learning-card h3 { margin:0 0 6px; color:#174d72; font-size:1.12rem; }
+        .card-help { margin:0 0 14px; color:#61717e; font-size:.94rem; }
+        .casa-grid,.soap-grid,.resident-reflection-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; }
+        .casa-grid label,.soap-grid label,.resident-reflection-grid label { display:flex; flex-direction:column; gap:5px; color:#34495a; font-weight:600; }
+        .casa-grid label>span { color:#194b6c; }
+        .casa-grid label b { display:inline-grid; place-items:center; width:25px; height:25px; border-radius:50%; background:#e2f3ef; color:#087e78; margin-right:5px; }
+        .casa-grid small { color:#71808c; font-weight:400; }
+        .learning-card textarea { box-sizing:border-box; width:100%; min-height:92px; padding:10px 11px; resize:vertical; border:1px solid #cbd5df; border-radius:6px; font-family:inherit; font-size:.95rem; line-height:1.45; }
+        .soap-plan { grid-column:1/-1; }
+        .resident-reflection-grid>.learning-card { margin:0; }
+        .resident-reflection-grid textarea { min-height:120px; }
+        .preceptor-banner { padding:16px 18px; margin:0 0 16px; background:#eef8f5; border-left:4px solid #168677; border-radius:6px; color:#35574f; }
+        .preceptor-banner p { margin:5px 0 0; }
+        .guide-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:12px; }
+        .guide-item { padding:14px; background:#f5f8fb; border-left:3px solid #168677; border-radius:5px; }
+        .guide-item h4 { margin:0 0 6px; color:#175477; }
+        .guide-item p,.guide-item ul { margin:0 0 6px; color:#4b5b68; font-size:.94rem; }
+        .guide-item ul { padding-left:18px; }
+        .guide-item li { margin:4px 0; }
+        .soap-grid select { min-height:42px; padding:8px; border:1px solid #cbd5df; border-radius:6px; background:#fff; font:inherit; }
+        .plan-actions { display:flex; gap:10px; flex-wrap:wrap; margin-top:18px; }
+        @media(max-width:650px) { .casa-grid,.soap-grid,.resident-reflection-grid { grid-template-columns:1fr; } .soap-plan { grid-column:auto; } .tab-button { flex:1; padding:11px 7px; } }
 
         /* Estilos de Impressão */
         @media print {
@@ -253,6 +343,8 @@
                 display: block !important;
                 box-shadow: none;
                 border: none;
+                margin-top: 0;
+                border-top: none;
             }
             .plan-grid {
                 grid-template-columns: 1fr 1fr;
@@ -262,6 +354,11 @@
                 border: 1px solid #ccc;
                 page-break-inside: avoid;
             }
+            /* Opcional: Se quiser imprimir o guia do preceptor, remova o display:none abaixo */
+            .tab-list, .plan-actions { display:none !important; }
+            #preceptor-panel[hidden] { display:none !important; }
+            #preceptor-panel:not([hidden]) { display:block !important; }
+            .learning-card, .guide-item { break-inside:avoid; }
         }
 
         /* Rodapé */
@@ -399,6 +496,7 @@
             <div class="section">
                 <h2 class="section-title">Passo 2: Frequência da Visita</h2>
                 <p class="section-subtitle">pela Classificação de Risco e Vulnerabilidade Clínica para Pacientes em Visita Domiciliar na APS</p>
+                
                 <div class="form-group">
                     <label>Idade:</label>
                     <div class="options">
@@ -536,51 +634,73 @@
             <button class="button button-secondary" id="btn-generate-plan" onclick="generatePlan()" style="display:none; margin-top: 10px;">Gerar Plano de Preceptoria</button>
         </div>
 
-        <!-- O PLANO DE PRECEPTORIA (ESCONDIDO) -->
-        <div id="preceptorship-plan">
+        <!-- ESPACO FORMATIVO: abas do residente e do preceptor -->
+        <section id="preceptorship-plan" aria-labelledby="learning-title">
+            <div class="learning-heading">
+                <p class="eyebrow">Depois da visita</p>
+                <h2 id="learning-title">Discussão e aprendizagem</h2>
+                <p>Registre primeiro a leitura do residente. Depois, use a conversa com o preceptor para revisar achados, decisões e próximos passos.</p>
+            </div>
             <div class="plan-header">
-                <input type="text" id="plan-patient-name" placeholder="Nome do Paciente">
-                <div id="plan-summary" class="classification-summary"></div>
+                <label for="plan-patient-name">Identificação do caso
+                    <input type="text" id="plan-patient-name" placeholder="Nome ou código do paciente (evite dados identificáveis ao compartilhar)">
+                </label>
+                <div id="plan-summary" class="classification-summary" aria-live="polite"></div>
             </div>
-            <div class="plan-grid">
-                <!-- Quadrante 1: Clínico -->
-                <div class="plan-quadrant">
-                    <h3>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><line x1="10" y1="9" x2="8" y2="9"></line></svg>
-                        O Clínico
-                    </h3>
-                    <textarea id="q1-clinico" placeholder="Principais achados clínicos, hipóteses, pontos-chave do exame..."></textarea>
-                </div>
-                <!-- Quadrante 2: Contexto -->
-                <div class="plan-quadrant">
-                    <h3>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
-                        O Contexto (C.A.S.A.)
-                    </h3>
-                    <textarea id="q2-contexto" placeholder="Observações sobre Cuidado, Ambiente, Suporte e Autonomia..."></textarea>
-                </div>
-                <!-- Quadrante 3: Aprendizado -->
-                <div class="plan-quadrant">
-                    <h3>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="23"></line><line x1="8" y1="23" x2="16" y2="23"></line></svg>
-                        O Aprendizado
-                    </h3>
-                    <textarea id="q3-aprendizado" placeholder="Qual foi o maior aprendizado ou dificuldade? O que a experiência despertou em você?"></textarea>
-                </div>
-                <!-- Quadrante 4: Plano -->
-                <div class="plan-quadrant">
-                    <h3>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="12" y1="18" x2="12" y2="12"></line><line x1="9" y1="15" x2="15" y2="15"></line></svg>
-                        O Plano
-                    </h3>
-                    <textarea id="q4-plano" placeholder="Plano de ação concreto para o paciente, considerando o clínico e o contexto..."></textarea>
-                </div>
+            <div class="tab-list" role="tablist" aria-label="Seções de discussão">
+                <button class="tab-button is-active" id="tab-resident" role="tab" aria-selected="true" aria-controls="resident-panel" onclick="showLearningTab('resident')">Para o residente</button>
+                <button class="tab-button" id="tab-preceptor" role="tab" aria-selected="false" aria-controls="preceptor-panel" onclick="showLearningTab('preceptor')">Para o preceptor</button>
             </div>
-            <div class="plan-actions">
-                <button class="button button-print" onclick="window.print()">Imprimir / Salvar PDF</button>
-                <button class="button" onclick="clearPlan()">Limpar Plano</button>
+
+            <div id="resident-panel" class="tab-panel" role="tabpanel" aria-labelledby="tab-resident">
+                <div class="panel-intro"><strong>Roteiro de observação ativa</strong><span>Use as perguntas como apoio para ampliar o olhar durante a visita; registre o que for relevante para este caso.</span></div>
+                <section class="learning-card">
+                    <h3>C.A.S.A. | Olhar integral sobre o domicílio</h3>
+                    <p class="card-help">Considere a interação entre condição clínica, cotidiano, ambiente e pessoas envolvidas no cuidado.</p>
+                    <div class="casa-grid">
+                        <label><span><b>C</b>uidado</span><small>Autocuidado e gestão da saúde</small><textarea id="casa-cuidado" placeholder="Como a pessoa cuida da saúde no dia a dia? O que consegue fazer sozinha? Como usa medicamentos e serviços?"></textarea></label>
+                        <label><span><b>A</b>mbiente</span><small>Moradia, higiene e acessibilidade</small><textarea id="casa-ambiente" placeholder="Que aspectos da moradia facilitam ou dificultam o cuidado? Há riscos, barreiras de acesso ou adaptações necessárias?"></textarea></label>
+                        <label><span><b>S</b>uporte</span><small>Rede de apoio e sobrecarga</small><textarea id="casa-suporte" placeholder="Quem participa do cuidado? Que apoios estão disponíveis? Há necessidades ou sobrecarga do cuidador?"></textarea></label>
+                        <label><span><b>A</b>utonomia</span><small>Funcionalidade e decisões</small><textarea id="casa-autonomia" placeholder="Como está a capacidade funcional? Como a pessoa participa das decisões e expressa suas preferências?"></textarea></label>
+                    </div>
+                </section>
+                <section class="learning-card">
+                    <h3>Resumo clínico | ReSOAP</h3>
+                    <p class="card-help">Organize o registro por problemas e conecte os dados observados às decisões propostas.</p>
+                    <div class="soap-grid">
+                        <label>R — Registro / problemas<textarea id="soap-r" placeholder="Problemas ativos, contexto e informações relevantes do prontuário."></textarea></label>
+                        <label>S — Subjetivo<textarea id="soap-s" placeholder="Relato da pessoa, do cuidador e suas preocupações; percepção de saúde e prioridades."></textarea></label>
+                        <label>O — Objetivo<textarea id="soap-o" placeholder="Achados da visita, exame, medidas e observações do ambiente."></textarea></label>
+                        <label>A — Avaliação<textarea id="soap-a" placeholder="Síntese, hipóteses, funcionalidade, riscos e necessidades identificadas."></textarea></label>
+                        <label class="soap-plan">P — Plano<textarea id="q4-plano" placeholder="Proposta inicial: ações, responsáveis, articulação da equipe e prazo de reavaliação."></textarea></label>
+                    </div>
+                </section>
+                <div class="resident-reflection-grid">
+                    <section class="learning-card"><h3>Aprendizado e reflexão</h3><p class="card-help">O que chamou sua atenção? O que foi desafiador ou mudou sua compreensão?</p><textarea id="q3-aprendizado" placeholder="Registre um aprendizado, uma dúvida ou uma situação que queira discutir."></textarea></section>
+                    <section class="learning-card"><h3>Perguntas para a discussão</h3><p class="card-help">Selecione até dois pontos de incerteza para explorar com o preceptor.</p><textarea id="resident-questions" placeholder="O que ainda não está claro? Que alternativas você considerou? Que pergunta gostaria de investigar?"></textarea></section>
+                </div>
+                <section class="learning-card next-steps"><h3>Plano de cuidado proposto pelo residente</h3><p class="card-help">Defina ações compartilhadas, responsáveis e quando reavaliar. O plano será pactuado na discussão.</p><div class="soap-grid"><label>Ações prioritárias<textarea id="plan-actions-resident" placeholder="O que precisa acontecer primeiro e por quê?"></textarea></label><label>Responsáveis e articulação da equipe<textarea id="plan-team" placeholder="Pessoa, cuidador, residente, preceptor e equipe: quem fará o quê?"></textarea></label><label>Prazo e critérios de reavaliação<textarea id="plan-followup" placeholder="Quando rever? Que sinais ou mudanças exigem contato antes?"></textarea></label><label>Preferências e pactuação<textarea id="plan-preferences" placeholder="Como as preferências da pessoa e a viabilidade do cuidado foram incorporadas?"></textarea></label></div></section>
             </div>
-        </div>
+
+            <div id="preceptor-panel" class="tab-panel" role="tabpanel" aria-labelledby="tab-preceptor" hidden>
+                <div class="panel-intro"><strong>Guia de debriefing</strong><span>Ajude o residente a explicitar seu raciocínio, reconheça o que já faz bem e construa com ele um próximo passo observável.</span></div>
+                <div class="preceptor-banner"><strong>Supervisão proporcional à competência</strong><p>Combine previamente o nível de supervisão necessário. A autonomia pode avançar conforme desempenho consistente, complexidade do caso e segurança da pessoa. Diante de risco ou incerteza relevante, retome supervisão direta e discuta o caso antes de encerrar o plano.</p></div>
+                <section class="learning-card">
+                    <h3>SNAPPS | Estruture a discussão com o residente</h3>
+                    <div class="guide-grid snap-grid">
+                        <article class="guide-item"><h4>1. Resumir</h4><p>Convide uma síntese breve, orientada pelos problemas e pelas prioridades da pessoa.</p><ul><li>“Quais são os problemas centrais e o que motivou a visita?”</li><li>“O que a pessoa e o cuidador consideram mais importante hoje?”</li></ul></article>
+                        <article class="guide-item"><h4>2. Delimitar</h4><p>Ajude a priorizar os pontos que merecem atenção nesta visita.</p><ul><li>“Qual problema precisa de decisão agora?”</li><li>“O que pode ser acompanhado pela equipe depois?”</li></ul></article>
+                        <article class="guide-item"><h4>3. Analisar</h4><p>Explore hipóteses e compare alternativas sem antecipar a resposta.</p><ul><li>“Quais hipóteses explicam os achados? O que favorece ou enfraquece cada uma?”</li><li>“Que dado adicional mudaria sua conduta?”</li></ul></article>
+                        <article class="guide-item"><h4>4. Investigar dúvidas</h4><p>Peça que o residente explicite incertezas e formule perguntas de aprendizagem.</p><ul><li>“Em que ponto você está menos seguro?”</li><li>“Que pergunta podemos responder juntos ou buscar depois?”</li></ul></article>
+                        <article class="guide-item"><h4>5. Planejar</h4><p>Construa um plano viável, compartilhado e compatível com o contexto domiciliar.</p><ul><li>“Como o plano considera ambiente, suporte e preferências?”</li><li>“Quem fará cada ação e quando vamos reavaliar?”</li></ul></article>
+                        <article class="guide-item"><h4>6. Selecionar um tema</h4><p>Escolham um tópico curto para aprofundar a aprendizagem.</p><ul><li>“Qual tema desta visita vale estudar?”</li><li>“Como você trará esse aprendizado para o próximo caso?”</li></ul></article>
+                    </div>
+                </section>
+                <section class="learning-card"><h3>One-Minute Preceptor | Cinco micro-habilidades</h3><div class="guide-grid"><article class="guide-item"><h4>1. Obter um compromisso</h4><p>“O que você acha que está acontecendo?” / “Qual seria seu próximo passo?”</p></article><article class="guide-item"><h4>2. Explorar o raciocínio</h4><p>“O que levou você a essa conclusão?” Escute antes de corrigir.</p></article><article class="guide-item"><h4>3. Ensinar uma regra geral</h4><p>Compartilhe um princípio breve ligado à necessidade identificada, contextualizado à APS e ao domicílio.</p></article><article class="guide-item"><h4>4. Reforçar o que foi bem</h4><p>Nomeie uma ação observável e seu efeito: “Você ouviu a prioridade da pessoa antes de propor o plano; isso tornou a decisão mais compartilhada.”</p></article><article class="guide-item"><h4>5. Corrigir com orientação</h4><p>Descreva uma oportunidade concreta de melhoria e combine uma alternativa para a próxima vez, em ambiente respeitoso.</p></article></div></section>
+                <section class="learning-card"><h3>Fechamento da supervisão</h3><div class="soap-grid"><label>Decisões pactuadas<textarea id="preceptor-decisions" placeholder="O que ficou combinado para o cuidado e para a equipe?"></textarea></label><label>Feedback e próximo objetivo<textarea id="preceptor-feedback" placeholder="Uma competência demonstrada, uma oportunidade de desenvolvimento e um objetivo observável para a próxima visita."></textarea></label><label>Nível de supervisão acordado<select id="supervision-level"><option value="">Selecione</option><option>Observação direta durante a visita</option><option>Discussão prévia e supervisão disponível durante a visita</option><option>Discussão posterior com supervisão indireta</option><option>Autonomia acordada com revisão programada</option></select></label><label>Justificativa / segurança<textarea id="supervision-rationale" placeholder="Considere proficiência demonstrada, complexidade, riscos e necessidade de apoio."></textarea></label></div></section>
+            </div>
+            <div class="plan-actions"><button class="button button-print" onclick="window.print()">Imprimir / Salvar PDF</button><button class="button" onclick="clearPlan()">Limpar registros</button></div>
+        </section>
     </div>
 
     <footer>
@@ -650,14 +770,20 @@
             total += Array.from(document.querySelectorAll('input[name="fragilidade"]:checked')).reduce((acc, curr) => acc + parseInt(curr.value), 0);
             total += parseInt(document.getElementById('pps-points').value);
             
+            // Lógica ajustada conforme solicitado:
+            // Baixo (<= 5) -> 6 meses a 1 ano
+            // Médio (6-10) -> 4 a 6 meses
+            // Alto (11-15) -> 2 a 3 meses
+            // Muito Alto (> 15, ou seja, >= 16) -> 1 a 2 meses
+            
             if (total <= 5) {
-                return { text: '6 meses a 1 ano', class: 'low-risk' };
+                return { text: '6 meses a 1 ano (Risco Baixo)', class: 'low-risk' };
             } else if (total <= 10) {
-                return { text: '4 a 6 meses', class: 'medium-risk' };
+                return { text: '4 a 6 meses (Risco Médio)', class: 'medium-risk' };
             } else if (total <= 15) {
-                return { text: '2 a 3 meses', class: 'high-risk' };
-            } else { // total >= 16
-                return { text: '1 a 2 meses', class: 'very-high-risk' };
+                return { text: '2 a 3 meses (Risco Alto)', class: 'high-risk' };
+            } else { 
+                return { text: '1 a 2 meses (Risco Muito Alto)', class: 'very-high-risk' };
             }
         }
 
@@ -688,28 +814,35 @@
             document.getElementById('pps-points').value = ppsPoints;
         }
 
-        // Mostra o Plano de Preceptoria e preenche o resumo
+        // Exibe as duas áreas formativas após os cálculos, sem alterar as regras das escalas.
         function generatePlan() {
             const plan = document.getElementById('preceptorship-plan');
             plan.style.display = 'block';
-
-            const adResultText = document.getElementById('result-ad').innerText.replace('Nível de Atenção\n', '');
-            const freqResultText = document.getElementById('result-freq').innerText.replace('Frequência da Visita\n', '');
-
-            document.getElementById('plan-summary').innerText = `Classificação: ${adResultText} | Frequência Sugerida: ${freqResultText}`;
-            
-            // Rola a tela para o plano
+            const adResultText = document.getElementById('result-ad').innerText.replace('Nível de Atenção\n', '').trim();
+            const freqResultText = document.getElementById('result-freq').innerText.replace('Frequência da Visita\n', '').trim();
+            document.getElementById('plan-summary').innerText = `Classificação: ${adResultText} | Frequência sugerida: ${freqResultText}`;
+            showLearningTab('resident');
             plan.scrollIntoView({ behavior: 'smooth' });
         }
 
-        // Limpa os campos do plano para uma nova sessão
-        function clearPlan() {
-            document.getElementById('plan-patient-name').value = '';
-            document.getElementById('q1-clinico').value = '';
-            document.getElementById('q2-contexto').value = '';
-            document.getElementById('q3-aprendizado').value = '';
-            document.getElementById('q4-plano').value = '';
+        function showLearningTab(section) {
+            const resident = section === 'resident';
+            document.getElementById('resident-panel').hidden = !resident;
+            document.getElementById('preceptor-panel').hidden = resident;
+            document.getElementById('tab-resident').classList.toggle('is-active', resident);
+            document.getElementById('tab-preceptor').classList.toggle('is-active', !resident);
+            document.getElementById('tab-resident').setAttribute('aria-selected', String(resident));
+            document.getElementById('tab-preceptor').setAttribute('aria-selected', String(!resident));
         }
+
+        // Limpa os registros das duas seções para iniciar outro caso.
+        function clearPlan() {
+            document.querySelectorAll('#preceptorship-plan input, #preceptorship-plan textarea').forEach(field => field.value = '');
+            document.querySelectorAll('#preceptorship-plan select').forEach(field => field.selectedIndex = 0);
+            showLearningTab('resident');
+        }
+
     </script>
 </body>
 </html>
+
